@@ -71,7 +71,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div className="lg:w-1/2">
               <div className="rounded-2xl overflow-hidden h-64 lg:h-full min-h-[250px] shadow-lg">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7028095726!2d121.5137!3d25.0453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a909c0b7f6a7%3A0x4a3a5c0c3c0b0b0b!2z5Y-w5YyX6LuK56uZ!5e0!3m2!1szh-TW!2stw!4v1600000000000!5m2!1szh-TW!2stw"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d57836.547046550724!2d121.5050203486328!3d25.0413969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442aba05f59a219%3A0x72ea3fb29ad194b8!2z5a6P6KeA5pWZ6IKyIOa0quingOaWh-eQhuijnOe_kuePreaOqOiWpuOAiuS_oee-qeWNgOijnOe_kuePreaOqOiWpuOAi-mbkeWutuWMluWwj--9nOiIiOmbheWMluS4re-9nOaxuOWYluWMluWwj--9nOeRoOWFjOWMluS4re-9nOaxuOWQieWMluS4re-9nOWNmuaCsuWMluWwj--9nOaIkOW-t-WMluS4re-9nOemj-W-t-WMluWwj--9nOaVuOWtuOiLseaWh-eQhuWMluS9jeaWh-WvpumJl--9nOWwj-ePreWItu-9nOaOqOiWpuWPo-eike-9nA!5e0!3m2!1szh-TW!2stw!4v1776335601612!5m2!1szh-TW!2stw"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
