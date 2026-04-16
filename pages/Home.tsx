@@ -44,7 +44,7 @@ const EDUCATION_CARDS = [
   {
     id: 'junior',
     title: '國中部',
-    image: 'https://picsum.photos/400/250?random=51',
+    image: '/junior.png',
     items: ['資優數學班', '全科精修班', '會考5A複習班', '延平數學專班'],
     link: '/courses?tab=junior',
     linkText: '國中七~九年級'
@@ -52,7 +52,7 @@ const EDUCATION_CARDS = [
   {
     id: 'senior',
     title: '高中部',
-    image: 'https://picsum.photos/400/250?random=52',
+    image: '/senior.png',
     items: ['數學資優班', '英文資優班', '學測複習班', '延平數學專班'],
     link: '/courses?tab=senior',
     linkText: '高中一~三年級'
