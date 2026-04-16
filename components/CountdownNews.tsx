@@ -117,12 +117,12 @@ export const CountdownSection: React.FC = () => {
           <CountdownTimer
             targetDate={EXAM_DATES.juniorHighExam}
             title="國中會考倒數"
-            subtitle="114年國中教育會考"
+            subtitle="115年國中教育會考"
           />
           <CountdownTimer
             targetDate={EXAM_DATES.collegeExam}
             title="大學學測倒數"
-            subtitle="114年學科能力測驗"
+            subtitle="116年學科能力測驗"
           />
         </div>
       </div>
