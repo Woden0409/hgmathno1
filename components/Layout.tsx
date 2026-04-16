@@ -99,10 +99,12 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             <div>
               <h4 className="text-white font-bold mb-4 text-lg">課程類別</h4>
               <ul className="space-y-2 text-sm">
-                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">國小全科班</button></li>
-                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">國中會考衝刺</button></li>
-                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">高中學測/分科</button></li>
-                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">一對一輔導</button></li>
+                <li><button onClick={() => navigateTo('/courses?tab=elementary')} className="hover:text-primary transition-colors">國小資優班</button></li>
+                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">數學資優班</button></li>
+                <li><button onClick={() => navigateTo('/courses?tab=junior')} className="hover:text-primary transition-colors">國中會考衝刺</button></li>
+                <li><button onClick={() => navigateTo('/courses?tab=senior')} className="hover:text-primary transition-colors">高中學測/分科</button></li>
+                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">個別指導</button></li>
+                <li><button onClick={() => navigateTo('/courses')} className="hover:text-primary transition-colors">延平數學專班</button></li>
               </ul>
             </div>
 
