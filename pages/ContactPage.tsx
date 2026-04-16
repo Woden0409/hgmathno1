@@ -84,7 +84,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-blue-300 mb-1">補習班地址</p>
-                      <p className="font-bold text-xl">台北市中正區許昌街 88 號 3 樓</p>
+                      <p className="font-bold text-xl">臺北市信義區大道路42巷18號</p>
                     </div>
                   </div>
 
@@ -94,7 +94,7 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-blue-300 mb-1">諮詢專線</p>
-                      <p className="font-bold text-xl">02-2345-6789</p>
+                      <p className="font-bold text-xl">02-2726-6441</p>
                     </div>
                   </div>
 
@@ -104,8 +104,10 @@ const ContactPage: React.FC = () => {
                     </div>
                     <div>
                       <p className="text-sm text-blue-300 mb-1">營業時間</p>
-                      <p className="font-medium text-lg">週一至週五 14:00 - 22:00</p>
-                      <p className="font-medium text-lg">週六、週日 09:00 - 22:00</p>
+                      <p className="font-medium text-lg">週一二四五 15:00 - 21:30</p>
+                      <p className="font-medium text-lg">週三 12:00 - 21:30</p>
+                      <p className="font-medium text-lg">週六 09:00 - 21:30</p>
+                      <p className="font-medium text-lg">週日 09:00 - 18:30</p>
                     </div>
                   </div>
                 </div>

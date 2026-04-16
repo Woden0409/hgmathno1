@@ -44,25 +44,23 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
               <div className="space-y-4 mb-6">
                 <div className="flex items-start gap-3">
                   <MapPin size={18} className="text-primary mt-1 flex-shrink-0" />
-                  <span>台北市中正區許昌街 88 號 3 樓</span>
+                  <span>臺北市信義區大道路42巷18號</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone size={18} className="text-primary flex-shrink-0" />
-                  <span>02-2345-6789</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Mail size={18} className="text-primary flex-shrink-0" />
-                  <span>contact@hongkuan.tw</span>
+                  <span>02-2726-6441</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <MessageCircle size={18} className="text-primary flex-shrink-0" />
-                  <span>LINE ID: @hongkuan</span>
+                  <span>LINE ID: @328maikp</span>
                 </div>
               </div>
 
               <p className="text-sm text-gray-500 mb-2">營業時間：</p>
-              <p className="text-sm">週一至週五 14:30 - 22:00</p>
-              <p className="text-sm mb-6">週六 08:30 - 17:00</p>
+              <p className="text-sm">週一二四五 15:00 - 21:30</p>
+              <p className="text-sm">週三 12:00 - 21:30</p>
+              <p className="text-sm">週六 09:00 - 21:30</p>
+              <p className="text-sm mb-6">週日 09:00 - 18:30</p>
 
               <Link to="/contact" className="inline-block border border-white/30 text-white px-6 py-2.5 rounded-lg hover:bg-white hover:text-accent transition-all font-bold">
                 立即預約試聽

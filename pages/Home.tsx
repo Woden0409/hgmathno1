@@ -294,15 +294,15 @@ const Home: React.FC = () => {
             <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12">
               <div className="flex items-center gap-3">
                 <MapPin size={20} className="text-secondary" />
-                <span>台北市中正區許昌街 88 號 3 樓</span>
+                <span>臺北市信義區大道路42巷18號</span>
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={20} className="text-secondary" />
-                <span className="font-bold">02-2345-6789</span>
+                <span className="font-bold">02-2726-6441</span>
               </div>
               <div className="flex items-center gap-3">
                 <Clock size={20} className="text-secondary" />
-                <span>週一至週五 14:00-22:00</span>
+                <span>週一至週六 15:00-21:30</span>
               </div>
             </div>
             <Link
