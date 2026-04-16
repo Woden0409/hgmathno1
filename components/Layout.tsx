@@ -34,7 +34,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
             {/* Left: Contact Info */}
             <div className="lg:w-1/2">
               <button onClick={scrollToTop} className="flex items-center gap-3 text-white font-black text-2xl mb-6">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-blue-900/50">宏</div>
+                <img src="/logo.png" alt="宏觀教育" className="h-12" />
                 宏觀教育
               </button>
               <p className="text-sm leading-relaxed mb-6 text-gray-400">
