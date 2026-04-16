@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 // Countdown Target Dates (Update these for each year)
 const EXAM_DATES = {
-  juniorHighExam: new Date('2025-05-17T08:30:00'), // 國中會考
-  collegeExam: new Date('2025-01-18T08:30:00'), // 學測
+  juniorHighExam: new Date('2026-05-16T08:30:00'), // 國中會考
+  collegeExam: new Date('2027-01-16T08:30:00'), // 學測
 };
 
 interface TimeLeft {
