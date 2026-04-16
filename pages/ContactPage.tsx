@@ -114,9 +114,9 @@ const ContactPage: React.FC = () => {
               </div>
 
               <div className="relative z-10 mt-12">
-                 <button onClick={handleAlert("將開啟 LINE 加入好友")} className="w-full bg-[#06C755] hover:bg-[#05b64d] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors shadow-lg shadow-green-900/20 text-lg">
+                 <a href="https://line.me/R/ti/p/@328maikp" target="_blank" rel="noopener noreferrer" className="w-full bg-[#06C755] hover:bg-[#05b64d] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-3 transition-colors shadow-lg shadow-green-900/20 text-lg">
                    <MessageCircle size={26} fill="white" /> 加入官方 LINE 諮詢
-                 </button>
+                 </a>
               </div>
             </div>
 

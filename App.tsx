@@ -185,7 +185,7 @@ const Navbar: React.FC = () => {
                 <a href="https://www.facebook.com/share/1AqtTYeTdZ/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform">
                   <Facebook size={16} />
                 </a>
-                <a href="https://line.me" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-[#00C300] text-white flex items-center justify-center hover:scale-110 transition-transform">
+                <a href="https://line.me/R/ti/p/@328maikp" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-[#00C300] text-white flex items-center justify-center hover:scale-110 transition-transform">
                   <MessageCircle size={16} />
                 </a>
                 <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-8 h-8 rounded-full bg-[#E4405F] text-white flex items-center justify-center hover:scale-110 transition-transform">
