@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班級介紹 - 金科文理補習班</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 全域設定 --- */
+        :root {
+            --primary-blue: #2B5592;
+            --secondary-blue: #1CB5E0; /* 較亮的藍色用於裝飾 */
+            --accent-orange: #ff9800; /* 用於箭頭或重點 */
+            --text-dark: #333;
+            --text-gray: #555;
+            --bg-light: #fdfdfd;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Microsoft JhengHei", "Heiti TC", sans-serif; color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; padding-left: 0; }
+        li { margin-bottom: 10px; position: relative; padding-left: 20px; }
+        /* 自定義列點符號 */
+        li::before { content: '•'; color: var(--text-gray); font-weight: bold; position: absolute; left: 0; }
+        img { max-width: 100%; display: block; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        /* --- Header (維持一致) --- */
+        header { border-top: 5px solid var(--primary-blue); background: #fff; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 24px; font-weight: bold; color: var(--primary-blue); }
+        .logo img { height: 50px; margin-right: 10px; }
+        .nav-menu { display: flex; gap: 25px; }
+        .nav-menu a { font-size: 16px; font-weight: 500; color: #333; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); }
+        .social-icons { display: flex; gap: 15px; font-size: 24px; }
+
+        /* --- Hero with Class Menu --- */
+        .class-hero {
+            position: relative;
+            height: 400px;
+            background: url('https://placehold.co/1920x600/333/999?text=Library+Background') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 半透明選單區塊 */
+        .class-menu-box {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(5px);
+            padding: 40px;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 300px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.6);
+        }
+
+        .class-btn {
+            background: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+            padding: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .class-btn:hover, .class-btn.active-tab {
+            background: #fff;
+            color: var(--text-dark);
+            text-shadow: none;
+        }
+
+        /* --- Content Sections --- */
+        .content-section {
+            display: none; /* 預設隱藏 */
+            padding: 60px 0;
+            animation: fadeIn 0.5s;
+        }
+        .content-section.active-content {
+            display: block; /* 顯示選中的區塊 */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Zig-Zag Layout items */
+        .course-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 80px;
+            gap: 50px;
+        }
+        .course-row.reverse { flex-direction: row-reverse; }
+        
+        .course-text { flex: 1; }
+        .course-img { flex: 1; text-align: center; }
+        .course-img img { max-width: 80%; margin: 0 auto; } /* 插圖不需要填滿 */
+
+        .course-title {
+            font-size: 32px;
+            color: var(--text-dark); /* 深灰色標題 */
+            margin-bottom: 20px;
+            border-left: 5px solid var(--secondary-blue);
+            padding-left: 15px;
+            font-weight: bold;
+        }
+        
+        .course-desc {
+            font-size: 20px;
+            color: var(--text-gray);
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .check-schedule-btn {
+            display: inline-block;
+            border: 1px solid var(--primary-blue);
+            color: var(--primary-blue);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-left: 15px;
+            transition: 0.3s;
+        }
+        .check-schedule-btn:hover {
+            background: var(--primary-blue);
+            color: #fff;
+        }
+
+        /* 國中階段特殊樣式 */
+        .stage-title {
+            font-size: 24px;
+            color: #444;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        
+        .schedule-table-placeholder {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 5px;
+            background: #fff;
+        }
+
+        /* RWD */
+        @media (max-width: 768px) {
+            .course-row, .course-row.reverse { flex-direction: column-reverse; text-align: left; }
+            .course-img img { max-width: 60%; margin-bottom: 30px; }
+            .class-menu-box { width: 90%; }
+        }
+
+        /* --- Footer (維持一致) --- */
+        footer { background: var(--primary-blue); color: #fff; padding: 40px 0 10px; margin-top: 0; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .footer-info h3 { font-size: 24px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; display: inline-block;}
+        .footer-info p { margin-bottom: 10px; }
+        .footer-map { width: 50%; height: 250px; background: #ddd; }
+        .footer-map iframe { width: 100%; height: 100%; border: 0; }
+        .appointment-btn { display: inline-block; border: 1px solid #fff; padding: 10px 40px; margin-top: 20px; transition: 0.3s; color: #fff;}
+        .appointment-btn:hover { background: #fff; color: var(--primary-blue); }
+        .footer-links { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; font-size: 12px; text-align: center; }
+        .footer-links a { margin: 0 5px; opacity: 0.8; }
+        .copyright { text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <img src="https://placehold.co/150x50/2B5592/fff?text=LOGO" alt="金科文理補習班">
+                <span>金科文理補習班<br><small style="font-size:12px;">國小·國中·高中·一對一</small></span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">首頁</a>
+                <a href="about.html">關於我們</a>
+                <a href="news.html">最新消息</a>
+                <a href="#" class="active">班級介紹</a>
+                <a href="#">師資介紹</a>
+                <a href="#">活動花絮</a>
+                <a href="#">線上資源</a>
+                <a href="#">聯繫我們</a>
+                <a href="#">合作校-氣息音樂</a>
+            </nav>
+            <div class="social-icons">
+                <i class="fab fa-facebook-square" style="color:#3b5998;"></i>
+                <i class="fab fa-line" style="color:#00c300;"></i>
+                <i class="fab fa-instagram" style="color:#e1306c;"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="class-hero">
+        <div class="class-menu-box">
+            <button class="class-btn active-tab" onclick="switchTab('elementary')">國小課程</button>
+            <button class="class-btn" onclick="switchTab('junior')">國中課程</button>
+            <button class="class-btn" onclick="switchTab('senior')">高中課程</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <div id="elementary" class="content-section active-content">
+            <div class="course-row">
+                <div class="course-text">
+                    <h2 class="course-title">國小精準數學</h2>
+                    <p class="course-desc">由淺入深提升孩子 邏輯推理能力</p>
+                    <ul>
+                        <li>由基礎到延伸，提升孩子的數學解題能力，並能舉一反三、觸類旁通。</li>
+                        <li>小班精緻教學，完全掌握孩子的學習狀況，即時個別加強，讓學習零死角。</li>
+                        <li>以孩子學校版本為主軸，統合各版本的重點精華，精編國小數學教學講義，讓學生輕鬆掌握學習重點，學習沒有斷層。</li>
+                    </ul>
+                </div>
+                <div class="course-img">
+                    <img src="https://placehold.co/400x300/fff/2B5592?text=Math+Brain+Icon" alt="數學插圖">
+                </div>
+            </div>
+
+            <hr style="border:0; border-top:1px dashed #ccc; margin: 40px 0;">
+
+            <div class="course-row reverse">
+                <div class="course-text">
+                    <h2 class="course-title">國小跳級美語</h2>
+                    <p class="course-desc">國中美語跳級超前學習 銜接國中零距離</p>
+                    <ul>
+                        <li>依 "十二年國教英語學習能力指標"，採用專業美語教材並輔以精編教學講義，完整銜接國小、國中課程，強化學生閱讀、文法及聽、寫能力。</li>
+                        <li>嚴選國中專業師資授課，生動活潑的教學，兼顧學生文法概念建立及聽、說、讀、寫能力的訓練，大大提升孩子學習英文的成效。</li>
+                        <li>輔導孩子參加GEPT小學英檢考試，從考試中評量孩子的學習成效，並... (下略)</li>
+                    </ul>
+                </div>
+                <div class="course-img">
+                    <img src="https://placehold.co/400x300/fff/2B5592?text=English+Teacher+Icon" alt="美語插圖">
+                </div>
+            </div>
+        </div>
+
+        <div id="junior" class="content-section">
+            
+            <div class="course-row">
+                <div class="course-text">
+                    <h2 class="course-title">國中家教式小團班(1~4人)</h2>
+                    <ul>
+                        <li>補教名師親編上課講義，讓學生熟練各項題型</li>
+                        <li>每週上課一次；每次上課1.5小時，讓學生花少少時間得到最大學習效益</li>
+                        <li>平時不會的題目，可透過Line幫助學生解題，讓疑惑馬上解決</li>
+                    </ul>
+                    <img src="https://placehold.co/150x150/fff/ff9800?text=Arrow+Up" alt="進步箭頭" style="margin-top:20px; width:100px;">
+                </div>
+                <div class="course-img">
+                    <img src="https://placehold.co/500x350/eee/999?text=Library+Scene" alt="教室場景">
+                </div>
+            </div>
+
+            <div class="course-row reverse">
+                <div class="course-text">
+                    <h2 class="course-title" style="display:inline-block;">國一實力養成班</h2>
+                    <a href="#" class="check-schedule-btn">查看課表 &rarr;</a>
+                    <ul style="margin-top:20px;">
+                        <li>補教名師精編教學講義，完全掌握命題焦點，讓學生輕鬆掌握學習方向！</li>
+                        <li>定期考試評量學習成效，學習落後學生即時輔導、一對一個別加強！</li>
+                        <li>段考前強迫留班「考前衝刺」，全面加強各科，爭取最佳成績表現！</li>
+                        <li>即時人臉、指紋辨識系統，學生到班、離班，家長隨時可清楚掌握。</li>
+                    </ul>
+                </div>
+                <div class="course-img">
+                    <img src="https://placehold.co/400x300/fff/2B5592?text=Student+Reading" alt="國一插圖">
+                </div>
+            </div>
+
+            <div class="course-row">
+                <div class="course-text">
+                    <h2 class="course-title" style="display:inline-block;">國二實力進階班</h2>
+                    <a href="#" class="check-schedule-btn">查看課表 &rarr;</a>
+                    <ul style="margin-top:20px;">
+                        <li>補教名師精編各科講義，讓學生輕鬆掌握學校段考及會考命題走向。</li>
+                        <li>段考「滿分衝刺班」全面加強各科試題演練，爭取最佳成績表現！</li>
+                        <li>利用週考及隨堂考評量學習成效，學習落後學生即時個別加強！</li>
+                    </ul>
+                </div>
+                <div class="course-img">
+                     <img src="https://placehold.co/400x300/fff/2B5592?text=Teacher+Explaining" alt="國二插圖">
+                </div>
+            </div>
+
+            <div style="background-color: #fdfdf5; padding: 40px 20px; border-radius: 10px; margin-top: 40px;">
+                <h2 class="course-title">國三會考5A精熟班</h2>
+
+                <div class="course-row" style="margin-bottom: 40px;">
+                    <div class="course-text">
+                        <div class="stage-title">階段1 > 暑假特訓 (奠定基礎) <a href="#" class="check-schedule-btn">查看課表 &rarr;</a></div>
+                        <ul>
+                            <li>會考命題占分最重的九上課程，利用暑假超前進度學習，贏在起跑點！</li>
+                            <li>鎖定第一次模擬考範圍，溫故知新，各科地毯式複習，完全徹底精讀！</li>
+                            <li>暑假 "5A讀書班" 鎖定會考5A目標，培養孩子良好讀書習慣，積極求勝！</li>
+                        </ul>
+                    </div>
+                     <div class="course-img">
+                        <img src="https://placehold.co/300x200/fff/2B5592?text=Puzzle+Team" alt="拼圖插畫">
+                    </div>
+                </div>
+
+                <div class="course-row reverse" style="margin-bottom: 40px;">
+                    <div class="course-text">
+                        <div class="stage-title">階段2 > 九年級上學期 (實力養成) <a href="#" class="check-schedule-btn">查看課表 &rarr;</a></div>
+                        <ul>
+                            <li>配合學校段考及模擬考排定學習進度，雙軌教學，預習與複習並重！</li>
+                            <li>補教名師去污存菁精編各科講義，讓同學輕鬆掌握會考命題方向！</li>
+                            <li>複習課程讓孩子依排定進度課前先預習再上課，發揮加乘學習效果！</li>
+                        </ul>
+                    </div>
+                    <div class="course-img">
+                         <img src="https://placehold.co/300x200/fff/2B5592?text=Rocket+Launch" alt="火箭發射">
+                    </div>
+                </div>
+
+                <div class="course-row" style="margin-bottom: 40px;">
+                    <div class="course-text">
+                        <div class="stage-title">階段3 > 寒假 & 九年級下學期 (實力精進)</div>
+                        <ul>
+                            <li>會考五大科超前進度學習，針對會考命題方向提綱挈領，做百分之百的鎖定！</li>
+                            <li>鑑古知今，加強歷屆會考試題演練，有效幫助同學確實掌握命題方向。</li>
+                            <li>全真模考仿會考命題、塗卡及電腦讀卡，快速累積學生的實戰經驗。</li>
+                        </ul>
+                        <div class="schedule-table-placeholder">
+                            <img src="https://placehold.co/600x200/fff/333?text=Schedule+Table+Image" alt="階段3課表">
+                        </div>
+                    </div>
+                    <div class="course-img">
+                         <img src="https://placehold.co/300x200/fff/2B5592?text=Writing+Exam" alt="考試插畫">
+                    </div>
+                </div>
+
+                <div class="course-row reverse">
+                    <div class="course-text">
+                        <div class="stage-title">階段4 > 會考衝刺班 (最後衝刺)</div>
+                        <ul>
+                            <li>會考五大科綜合複習，補教名師精闢猜題講座，以最精簡的時間，發揮極致的複習效果！</li>
+                            <li>考前完整搶分讀書計畫，各科地毯式複習，強迫搶分上榜！</li>
+                            <li>針對數學非選題、英文聽力測驗及國文寫作測驗密集特訓，爭取最佳成績表現！</li>
+                        </ul>
+                         <div class="schedule-table-placeholder">
+                            <img src="https://placehold.co/600x200/fff/333?text=Sprint+Schedule+Image" alt="階段4課表">
+                        </div>
+                    </div>
+                     <div class="course-img">
+                         <img src="https://placehold.co/300x200/fff/2B5592?text=Lightbulb+Idea" alt="燈泡插畫">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="senior" class="content-section">
+            <div style="text-align:center; padding: 100px 0;">
+                <h2 style="color:#ccc;">高中課程內容建置中...</h2>
+                <p>請參考首頁的高中部簡介或聯繫我們。</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>金科文理補習班</h3>
+                    <p>班部地址：台北市信義區松信路154號1樓</p>
+                    <p>諮詢電話：02-2769-6727</p>
+                    <p>營業時間：</p>
+                    <p>週一 ~ 週五 下午14:30 ~ 下午22:00</p>
+                    <p>週六 上午 08:30 ~ 下午17:00</p>
+                    <a href="#" class="appointment-btn">立即預約</a>
+                </div>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.936666!2d121.57!3d25.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAyJzM0LjgiTiAxMjHCsDM0JzMwLjAiRQ!5e0!3m2!1sen!2stw!4v1600000000000!5m2!1sen!2stw" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">金科文理補習班</a> | 
+                <a href="#">信義區補習班推薦</a> | 
+                <a href="#">信義區國中小補習班</a>
+            </div>
+            <div class="copyright">
+                © 2022 Power by 8ducation Inc.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId) {
+            // 1. 隱藏所有內容區塊
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(section => {
+                section.classList.remove('active-content');
+            });
+
+            // 2. 移除所有按鈕的 active 樣式
+            const buttons = document.querySelectorAll('.class-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('active-tab');
+            });
+
+            // 3. 顯示目標區塊
+            document.getElementById(tabId).classList.add('active-content');
+
+            // 4. 為點擊的按鈕加上 active 樣式
+            // 這裡使用 event.target 抓取被點擊的元素
+            event.target.classList.add('active-tab');
+        }
+    </script>
+
+</body>
+</html>

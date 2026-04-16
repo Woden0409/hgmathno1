@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黑板圖上疊加文字效果測試</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 重置基本樣式 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        /* --- 核心：黑板圖上疊加文字的容器 --- */
+        .hero-image-overlay-container {
+            position: relative; /* 這是關鍵！設定為相對定位，讓裡面的絕對定位子元素以此為基準 */
+            width: 100%;
+            max-width: 1200px; /* 設定一個最大寬度，避免在超大螢幕上文字飄太遠 */
+            margin: 0 auto; /* 置中 */
+            padding: 40px 0; /* 模擬原圖的間距 */
+            background-color: #FAFAFA; /* 模擬網頁背景色 */
+        }
+
+        /* 原本的黑板圖 */
+        .origin-blackboard-img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 20px; /* 模擬圖中的圓角效果 */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); /* 增加點立體感 */
+        }
+
+        /* --- 定義疊加文字的通用樣式 (粉筆字感) --- */
+        .chalk-text-overlay {
+            position: absolute; /* 關鍵：相對於父容器作絕對定位 */
+            color: rgba(255, 255, 255, 0.9); /* 白色粉筆，帶一點點透明 */
+            text-align: center;
+            letter-spacing: 2px;
+            pointer-events: none; /* 讓滑鼠點擊可以穿過文字，不影響圖片上的連結 (如果有) */
+            
+            /* 可選：加入一點粉筆筆觸的紋理感 (這裡用陰影模擬) */
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.1), 1px 1px 3px rgba(255,255,255,0.3);
+        }
+
+        /* 位置範例 1: 左側裝飾文字 */
+        .overlay-left {
+            top: 25%; /* 距離容器頂部的距離 */
+            left: 5%;  /* 距離容器左側的距離 */
+            transform: translateY(-50%) rotate(-5deg); /* 置中並稍微旋轉 */
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        /* 位置範例 2: 右側重點文字 */
+        .overlay-right {
+            bottom: 25%; /* 距離容器底部的距離 */
+            right: 8%;   /* 距離容器右側的距離 */
+            transform: translateY(50%) rotate(5deg);
+            font-size: 24px;
+        }
+
+        /* --- 黑板文字框裝飾 (模擬圖中原本就有，但可以動態文字) --- */
+        .chalk-box-overlay {
+            position: absolute;
+            bottom: 12%; /* 放在照片下方空白處 */
+            left: 50%;
+            transform: translateX(-50%); /* 水平置中 */
+            
+            border: 2px dashed rgba(255,255,255,0.7); /* 虛線框 */
+            padding: 8px 15px;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.1); /* 淺色粉筆背景 */
+            
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        /* 針對文字框內的細節 */
+        .chalk-box-title {
+            color: #FBBF24; /* 使用品牌橘黃色 */
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero-image-overlay-container">
+        
+        <img src="https://i.imgur.com/gK9J6Wq.png" alt="宏觀教育榮譽榜" class="origin-blackboard-img">
+        
+        <div class="chalk-text-overlay overlay-left">
+            <span>紮實基礎，<br>關鍵策略。</span>
+        </div>
+
+        <div class="chalk-text-overlay overlay-right">
+            <span>適性輔導，<br>多元發展！</span>
+        </div>
+
+        <div class="chalk-box-overlay">
+            <span class="chalk-box-title">最新公告：</span> 112學年度會考模擬考開始報名
+        </div>
+
+    </section>
+
+</body>
+</html>

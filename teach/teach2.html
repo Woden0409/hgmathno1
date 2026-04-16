@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最新消息 - 金科文理補習班</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 全域設定 (維持一致性) --- */
+        :root {
+            --primary-blue: #2B5592;
+            --text-dark: #333;
+            --text-gray: #666;
+            --bg-light: #f9f9f9;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Microsoft JhengHei", "Heiti TC", sans-serif; color: var(--text-dark); line-height: 1.6; background-color: #fff; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        /* --- Header --- */
+        header { border-top: 5px solid var(--primary-blue); background: #fff; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 24px; font-weight: bold; color: var(--primary-blue); }
+        .logo img { height: 50px; margin-right: 10px; }
+        .nav-menu { display: flex; gap: 25px; }
+        .nav-menu a { font-size: 16px; font-weight: 500; color: #333; padding-bottom: 5px; border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .nav-menu a:hover, .nav-menu a.active { color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); }
+        .social-icons { display: flex; gap: 15px; font-size: 24px; }
+
+        /* --- News Page Specific Styles --- */
+        .page-top-bar {
+            padding: 20px 0 10px;
+            font-size: 14px;
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee; /* 選項：增加一條淡線區隔 */
+            padding-bottom: 10px;
+        }
+
+        .news-title {
+            font-size: 24px;
+            color: #bfa15f; /* 截圖中的金色/土黃色調 */
+            font-weight: normal;
+        }
+
+        .search-icon {
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+        }
+
+        /* Grid Layout */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .news-card {
+            background: #fff;
+            transition: transform 0.3s;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            width: 100%;
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            margin-bottom: 15px;
+            background-color: #eee;
+        }
+
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 10px;
+            color: #333;
+            line-height: 1.4;
+        }
+
+        .card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            display: -webkit-box;
+            -webkit-line-clamp: 3; /* 限制顯示3行 */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* RWD */
+        @media (max-width: 900px) {
+            .news-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .news-grid { grid-template-columns: 1fr; }
+            .header-inner { flex-direction: column; gap: 10px; }
+            .nav-menu { flex-wrap: wrap; justify-content: center; gap: 15px; }
+        }
+
+        /* --- Footer (維持一致性) --- */
+        footer { background: var(--primary-blue); color: #fff; padding: 40px 0 10px; margin-top: 0; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .footer-info h3 { font-size: 24px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; display: inline-block;}
+        .footer-info p { margin-bottom: 10px; }
+        .footer-map { width: 50%; height: 250px; background: #ddd; }
+        .footer-map iframe { width: 100%; height: 100%; border: 0; }
+        .appointment-btn { display: inline-block; border: 1px solid #fff; padding: 10px 40px; margin-top: 20px; transition: 0.3s; color: #fff;}
+        .appointment-btn:hover { background: #fff; color: var(--primary-blue); }
+        .footer-links { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; font-size: 12px; text-align: center; }
+        .footer-links a { margin: 0 5px; opacity: 0.8; }
+        .copyright { text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <img src="https://placehold.co/150x50/2B5592/fff?text=LOGO" alt="金科文理補習班">
+                <span>金科文理補習班<br><small style="font-size:12px;">國小·國中·高中·一對一</small></span>
+            </div>
+            <nav class="nav-menu">
+                <a href="index.html">首頁</a>
+                <a href="about.html">關於我們</a>
+                <a href="#" class="active">最新消息</a>
+                <a href="#">班級介紹</a>
+                <a href="#">師資介紹</a>
+                <a href="#">活動花絮</a>
+                <a href="#">線上資源</a>
+                <a href="#">聯繫我們</a>
+                <a href="#">合作校-氣息音樂</a>
+            </nav>
+            <div class="social-icons">
+                <i class="fab fa-facebook-square" style="color:#3b5998;"></i>
+                <i class="fab fa-line" style="color:#00c300;"></i>
+                <i class="fab fa-instagram" style="color:#e1306c;"></i>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="page-top-bar">
+            專業 | 認真 | 負責
+        </div>
+
+        <div class="news-header">
+            <h2 class="news-title">最新課程</h2>
+            <div class="search-icon">
+                <i class="fas fa-search"></i>
+            </div>
+        </div>
+
+        <div class="news-grid">
+            
+            <div class="news-card">
+                <img src="https://placehold.co/400x300/d9534f/fff?text=114年榜單+謝O宸" alt="榜單" class="card-img">
+                <div class="card-meta">
+                    <span>Aug 15, 2025</span>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+                <h3 class="card-title">114年國中教育會考榜單</h3>
+                <div class="card-desc"></div> </div>
+
+            <div class="news-card">
+                <img src="https://placehold.co/400x300/f0ad4e/fff?text=暑假模考課表" alt="課表" class="card-img">
+                <div class="card-meta">
+                    <span>Aug 15, 2025</span>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+                <h3 class="card-title">暑假8/27~28國九第一~二冊模模考，來囉!</h3>
+                <div class="card-desc">
+                    歡迎各路好手報名，測試測試你這暑假的念書成果。
+                </div>
+            </div>
+
+            <div class="news-card">
+                <img src="https://placehold.co/400x300/5bc0de/fff?text=放暑假囉!" alt="放暑假" class="card-img">
+                <div class="card-meta">
+                    <span>Jul 24, 2025</span>
+                    <i class="fas fa-ellipsis-v"></i>
+                </div>
+                <h3 class="card-title">OH YA~金科放暑假囉！</h3>
+                <div class="card-desc">
+                    各年級放假時間如下：國中小暑假時間: 7/26(六)~8/3(日) ; 8/4(一)恢復正常上課。高一班暑假時間:...
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>金科文理補習班</h3>
+                    <p>班部地址：台北市信義區松信路154號1樓</p>
+                    <p>諮詢電話：02-2769-6727</p>
+                    <p>營業時間：</p>
+                    <p>週一 ~ 週五 下午14:30 ~ 下午22:00</p>
+                    <p>週六 上午 08:30 ~ 下午17:00</p>
+                    <a href="#" class="appointment-btn">立即預約</a>
+                </div>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.936666!2d121.57!3d25.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAyJzM0LjgiTiAxMjHCsDM0JzMwLjAiRQ!5e0!3m2!1sen!2stw!4v1600000000000!5m2!1sen!2stw" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">金科文理補習班</a> | 
+                <a href="#">信義區補習班推薦</a> | 
+                <a href="#">信義區國中小補習班</a> | 
+                <a href="#">興雅國小補習班</a>
+            </div>
+            <div class="copyright">
+                © 2022 Power by 8ducation Inc.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

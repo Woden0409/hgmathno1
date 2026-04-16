@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>代課媒合中心</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1b3b8c;
+            --secondary-blue: #eff6ff;
+            --accent-yellow: #feca2e;
+            --accent-red: #ef4444;
+            --light-bg: #f3f7fa;
+            --white: #ffffff;
+            --text-dark: #334155;
+            --text-grey: #64748b;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            background: var(--white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            padding: 0 0 80px 0; /* 底部留白給按鈕 */
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+        }
+
+        /* 頂部 Header 區塊 */
+        .header {
+            background: var(--primary-blue);
+            padding: 30px 20px 60px 20px; /* 下方留空間給數據卡片 */
+            color: #fff;
+            position: relative;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 頂部數據統計 (懸浮卡片) */
+        .stats-bar {
+            display: flex;
+            justify-content: space-around;
+            background: #fff;
+            margin: -40px 20px 20px 20px;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-num {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-grey);
+            margin-top: 5px;
+        }
+
+        /* 標籤切換 (Tabs) */
+        .tab-group {
+            display: flex;
+            padding: 0 20px;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 20px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 15px;
+            background: none;
+            border: none;
+            font-size: 1rem;
+            color: var(--text-grey);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .tab-btn.active {
+            color: var(--primary-blue);
+            font-weight: 700;
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 4px;
+            background-color: var(--accent-yellow);
+            border-radius: 4px 4px 0 0;
+        }
+
+        /* 列表容器 */
+        .list-container {
+            padding: 0 20px;
+        }
+
+        /* 單個代課卡片 */
+        .sub-card {
+            display: flex;
+            align-items: center;
+            background: #fff;
+            border: 1px solid #f1f5f9;
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .sub-card:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-color: #e2e8f0;
+            transform: translateY(-2px);
+        }
+
+        /* 左側日期方塊 */
+        .date-box {
+            background-color: var(--secondary-blue);
+            border-radius: 12px;
+            padding: 10px 15px;
+            text-align: center;
+            margin-right: 15px;
+            min-width: 50px;
+        }
+
+        .date-month {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            font-weight: 700;
+        }
+
+        .date-day {
+            display: block;
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        /* 中間資訊 */
+        .card-info {
+            flex: 1;
+        }
+
+        .info-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .subject-tag {
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+        }
+        
+        .tag-math { background: #dbeafe; color: #1e40af; }
+        .tag-eng { background: #fef3c7; color: #92400e; }
+        .tag-urgent { background: #fee2e2; color: #b91c1c; display: flex; align-items: center; gap: 4px;}
+
+        .teacher-name {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .time-detail {
+            font-size: 0.9rem;
+            color: var(--text-grey);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        /* 右側按鈕 */
+        .action-area {
+            margin-left: 10px;
+        }
+
+        .accept-btn {
+            background-color: var(--primary-blue);
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .accept-btn:hover {
+            background-color: #152c69;
+        }
+        
+        .accept-btn.disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        /* 右下角 FAB 刊登按鈕 */
+        .fab-post {
+            position: absolute;
+            bottom: 30px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background-color: var(--accent-yellow);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #854d0e;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(254, 202, 46, 0.5);
+            cursor: pointer;
+            border: none;
+            transition: transform 0.2s;
+            z-index: 20;
+        }
+
+        .fab-post:hover {
+            transform: scale(1.1);
+        }
+        
+        .fab-label {
+            position: absolute;
+            right: 70px;
+            background: #333;
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.2s;
+            pointer-events: none;
+        }
+
+        .fab-post:hover + .fab-label {
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        
+        <div class="header">
+            <div class="header-top">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h1>代課媒合池</h1>
+                <div style="width: 40px;"></div> </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat-item">
+                <span class="stat-num">5</span>
+                <span class="stat-label">可接案件</span>
+            </div>
+            <div class="stat-item" style="border-left: 1px solid #eee; border-right: 1px solid #eee; padding: 0 20px;">
+                <span class="stat-num">$1,200</span>
+                <span class="stat-label">本月代課費</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-num">2</span>
+                <span class="stat-label">已接課程</span>
+            </div>
+        </div>
+
+        <div class="tab-group">
+            <button class="tab-btn active">尋找代課</button>
+            <button class="tab-btn">我的刊登</button>
+            <button class="tab-btn">歷史紀錄</button>
+        </div>
+
+        <div class="list-container">
+            
+            <div class="sub-card">
+                <div class="date-box">
+                    <span class="date-month">OCT</span>
+                    <span class="date-day">26</span>
+                </div>
+                <div class="card-info">
+                    <div class="info-header">
+                        <span class="subject-tag tag-urgent"><i class="fa-solid fa-fire"></i> 急徵</span>
+                        <span class="subject-tag tag-math">數學</span>
+                        <span class="teacher-name">李曉華 老師</span>
+                    </div>
+                    <div class="time-detail">
+                        <i class="fa-regular fa-clock"></i> 第 6-7 節 (14:20 - 16:10)
+                    </div>
+                    <div class="time-detail" style="margin-top: 4px; font-size: 0.8rem; color: #64748b;">
+                        <i class="fa-solid fa-location-dot"></i> 201 教室
+                    </div>
+                </div>
+                <div class="action-area">
+                    <button class="accept-btn" onclick="acceptTask(this)">我要接課</button>
+                </div>
+            </div>
+
+            <div class="sub-card">
+                <div class="date-box">
+                    <span class="date-month">OCT</span>
+                    <span class="date-day">28</span>
+                </div>
+                <div class="card-info">
+                    <div class="info-header">
+                        <span class="subject-tag tag-eng">英文</span>
+                        <span class="teacher-name">王大明 老師</span>
+                    </div>
+                    <div class="time-detail">
+                        <i class="fa-regular fa-clock"></i> 第 3 節 (10:10 - 11:00)
+                    </div>
+                    <div class="time-detail" style="margin-top: 4px; font-size: 0.8rem; color: #64748b;">
+                        <i class="fa-solid fa-location-dot"></i> 語言教室 A
+                    </div>
+                </div>
+                <div class="action-area">
+                    <button class="accept-btn" onclick="acceptTask(this)">我要接課</button>
+                </div>
+            </div>
+
+            <div class="sub-card" style="opacity: 0.6; background: #fafafa;">
+                <div class="date-box" style="background: #e2e8f0; color: #94a3b8;">
+                    <span class="date-month">OCT</span>
+                    <span class="date-day" style="color: #94a3b8;">25</span>
+                </div>
+                <div class="card-info">
+                    <div class="info-header">
+                        <span class="subject-tag" style="background:#eee; color:#666;">理化</span>
+                        <span class="teacher-name" style="color: #999;">張志豪 老師</span>
+                    </div>
+                    <div class="time-detail">
+                        <i class="fa-regular fa-clock"></i> 第 1 節 (08:10)
+                    </div>
+                    <div class="time-detail">
+                        <span style="color: #10b981; font-weight: 600; font-size: 0.85rem;">
+                            <i class="fa-solid fa-check-circle"></i> 已由 陳老師 接手
+                        </span>
+                    </div>
+                </div>
+                <div class="action-area">
+                    <button class="accept-btn disabled" disabled>已額滿</button>
+                </div>
+            </div>
+            
+            <div style="height: 60px;"></div>
+
+        </div>
+
+        <button class="fab-post" onclick="alert('跳轉至請假刊登頁面...')">
+            <i class="fa-solid fa-plus"></i>
+        </button>
+        <div class="fab-label">刊登需求</div>
+
+    </div>
+
+    <script>
+        // 簡單的互動：點擊接課後改變狀態
+        function acceptTask(btn) {
+            if(confirm("確定要接下這堂代課嗎？系統將通知原授課老師。")) {
+                btn.innerHTML = '<i class="fa-solid fa-check"></i> 已接手';
+                btn.classList.add('disabled');
+                btn.style.backgroundColor = '#10b981'; // 變成綠色
+                btn.disabled = true;
+                
+                // 模擬數據更新
+                alert("接課成功！已加入您的行事曆。");
+            }
+        }
+    </script>
+</body>
+</html>

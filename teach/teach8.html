@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>紀錄查詢與簽核</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1b3b8c;
+            --accent-yellow: #feca2e;
+            --light-bg: #f3f7fa;
+            --white: #ffffff;
+            --text-dark: #334155;
+            --text-grey: #94a3b8;
+            --status-green: #10b981;
+            --status-yellow: #f59e0b;
+            --status-red: #ef4444;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .main-container {
+            background: var(--white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            padding: 0 0 40px 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 80vh;
+        }
+
+        /* 頂部 Header */
+        .header {
+            background: var(--primary-blue);
+            padding: 30px 20px 80px 20px; /* 留空間給統計卡片 */
+            color: #fff;
+            border-radius: 0 0 30px 30px; /* 底部圓弧 */
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            color: #fff;
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 統計概覽卡片 (3欄) */
+        .summary-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+            padding: 0 20px;
+            margin-top: -50px; /* 往上浮動 */
+        }
+
+        .summary-card {
+            background: #fff;
+            padding: 15px 10px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .sum-num {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-blue);
+            line-height: 1.2;
+        }
+
+        .sum-label {
+            font-size: 0.75rem;
+            color: var(--text-grey);
+            margin-top: 5px;
+        }
+
+        /* 切換開關 (Segmented Control) */
+        .toggle-container {
+            margin: 30px 20px 20px;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 50px;
+            display: flex;
+            position: relative;
+        }
+
+        .toggle-btn {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 10px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: var(--text-grey);
+            cursor: pointer;
+            z-index: 2;
+            transition: color 0.3s;
+        }
+
+        .toggle-btn.active {
+            color: var(--primary-blue);
+        }
+
+        /* 滑動背景塊 */
+        .toggle-bg {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            width: calc(50% - 5px);
+            height: calc(100% - 10px);
+            background: #fff;
+            border-radius: 40px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            z-index: 1;
+        }
+
+        /* 紀錄列表 */
+        .record-list {
+            padding: 0 20px;
+            list-style: none;
+            margin: 0;
+        }
+
+        .record-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f1f5f9;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .record-left {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .record-icon {
+            width: 45px;
+            height: 45px;
+            background: var(--light-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--primary-blue);
+            flex-shrink: 0;
+        }
+
+        .record-info h3 {
+            margin: 0 0 5px 0;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .record-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-grey);
+        }
+
+        .record-right {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 5px;
+        }
+
+        /* 狀態標籤 */
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-pending { background: #fffbeb; color: var(--status-yellow); }
+        .status-approved { background: #ecfdf5; color: var(--status-green); }
+        .status-rejected { background: #fef2f2; color: var(--status-red); }
+        
+        .money-text {
+            font-weight: 700;
+            color: var(--primary-blue);
+            font-size: 1rem;
+        }
+
+        /* 篩選功能用的 class */
+        .hidden {
+            display: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="header-top">
+                <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+                <h1>紀錄查詢與簽核</h1>
+                <div style="width: 40px;"></div>
+            </div>
+        </div>
+
+        <div class="summary-row">
+            <div class="summary-card">
+                <span class="sum-num" style="color: var(--status-yellow);">1</span>
+                <span class="sum-label">待審核</span>
+            </div>
+            <div class="summary-card">
+                <span class="sum-num">3.5</span>
+                <span class="sum-label">剩餘假別</span>
+            </div>
+            <div class="summary-card">
+                <span class="sum-num">$2,400</span>
+                <span class="sum-label">本月代課費</span>
+            </div>
+        </div>
+
+        <div class="toggle-container">
+            <div class="toggle-bg" id="toggleBg"></div>
+            <button class="toggle-btn active" onclick="switchTab('leave', this)">請假紀錄</button>
+            <button class="toggle-btn" onclick="switchTab('sub', this)">代課收入</button>
+        </div>
+
+        <div class="record-list" id="recordList">
+            
+            <div class="record-item type-leave">
+                <div class="record-left">
+                    <div class="record-icon">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <div class="record-info">
+                        <h3>事假申請</h3>
+                        <p>11/02 (週四) 第 3-5 節</p>
+                        <p style="font-size:0.75rem; margin-top:2px;">事由：家庭因素處理...</p>
+                    </div>
+                </div>
+                <div class="record-right">
+                    <span class="status-badge status-pending">
+                        <i class="fa-regular fa-clock"></i> 簽核中
+                    </span>
+                    <small style="color:#ccc;">今天</small>
+                </div>
+            </div>
+
+            <div class="record-item type-leave">
+                <div class="record-left">
+                    <div class="record-icon" style="color: #64748b;">
+                        <i class="fa-solid fa-bed-pulse"></i>
+                    </div>
+                    <div class="record-info">
+                        <h3>病假申請</h3>
+                        <p>10/15 (週一) 全天</p>
+                    </div>
+                </div>
+                <div class="record-right">
+                    <span class="status-badge status-approved">
+                        <i class="fa-solid fa-check"></i> 已核准
+                    </span>
+                    <small style="color:#ccc;">10/15</small>
+                </div>
+            </div>
+
+            <div class="record-item type-leave">
+                <div class="record-left">
+                    <div class="record-icon" style="color: #ef4444;">
+                        <i class="fa-solid fa-ban"></i>
+                    </div>
+                    <div class="record-info">
+                        <h3>公假申請</h3>
+                        <p>09/20 (週三) 第 1 節</p>
+                    </div>
+                </div>
+                <div class="record-right">
+                    <span class="status-badge status-rejected">
+                        <i class="fa-solid fa-xmark"></i> 退回
+                    </span>
+                    <small style="color:var(--status-red); font-size: 0.7rem;">附件不足</small>
+                </div>
+            </div>
+
+
+            <div class="record-item type-sub hidden">
+                <div class="record-left">
+                    <div class="record-icon" style="color: #d97706; background: #fffbeb;">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <div class="record-info">
+                        <h3>代課：英文科 (王大明)</h3>
+                        <p>10/28 (週三) 第 3 節</p>
+                        <p style="font-size:0.75rem; margin-top:2px;">語言教室 A</p>
+                    </div>
+                </div>
+                <div class="record-right">
+                    <span class="money-text">+$400</span>
+                    <span class="status-badge status-pending" style="background:transparent; color:#94a3b8; border:1px solid #e2e8f0;">
+                        結算中
+                    </span>
+                </div>
+            </div>
+
+            <div class="record-item type-sub hidden">
+                <div class="record-left">
+                    <div class="record-icon" style="color: #d97706; background: #fffbeb;">
+                        <i class="fa-solid fa-chalkboard-user"></i>
+                    </div>
+                    <div class="record-info">
+                        <h3>代課：數學科 (李曉華)</h3>
+                        <p>10/20 (週五) 第 6-7 節</p>
+                    </div>
+                </div>
+                <div class="record-right">
+                    <span class="money-text">+$800</span>
+                    <span class="status-badge status-approved">
+                        <i class="fa-solid fa-check-double"></i> 已入帳
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function switchTab(type, btn) {
+            // 1. 處理按鈕樣式
+            document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 2. 處理滑塊動畫
+            const bg = document.getElementById('toggleBg');
+            if (type === 'sub') {
+                bg.style.transform = 'translateX(100%)';
+            } else {
+                bg.style.transform = 'translateX(0)';
+            }
+
+            // 3. 篩選列表內容
+            const leaves = document.querySelectorAll('.type-leave');
+            const subs = document.querySelectorAll('.type-sub');
+
+            if (type === 'leave') {
+                leaves.forEach(el => el.classList.remove('hidden'));
+                subs.forEach(el => el.classList.add('hidden'));
+            } else {
+                leaves.forEach(el => el.classList.add('hidden'));
+                subs.forEach(el => el.classList.remove('hidden'));
+            }
+        }
+    </script>
+</body>
+</html>

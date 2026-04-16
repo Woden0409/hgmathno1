@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>師資介紹 - 金科文理補習班</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- 全域設定 --- */
+        :root {
+            --primary-blue: #2B5592;
+            --text-dark: #333;
+            --text-gray: #555;
+            --bg-light: #fdfdfd;
+        }
+
+        html {
+            scroll-behavior: smooth; /* 讓點擊選單時平滑滾動 */
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: "Microsoft JhengHei", "Heiti TC", sans-serif; color: var(--text-dark); line-height: 1.6; background-color: var(--bg-light); }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        .container { width: 90%; max-width: 1200px; margin: 0 auto; padding: 0 15px; }
+
+        /* --- Header & Dropdown --- */
+        header { border-top: 5px solid var(--primary-blue); background: #fff; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .header-inner { display: flex; justify-content: space-between; align-items: center; }
+        .logo { display: flex; align-items: center; font-size: 24px; font-weight: bold; color: var(--primary-blue); }
+        .logo img { height: 50px; margin-right: 10px; }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-item { position: relative; } /* 為下拉選單定位用 */
+        
+        .nav-link { 
+            font-size: 16px; font-weight: 500; color: #333; padding-bottom: 5px; 
+            border-bottom: 2px solid transparent; transition: all 0.3s; cursor: pointer;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--primary-blue); border-bottom: 2px solid var(--primary-blue); }
+        
+        /* 下拉選單樣式 */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(255, 255, 255, 0.9);
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            z-index: 1001;
+            border-top: 3px solid var(--primary-blue);
+            text-align: center;
+        }
+        
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .dropdown-content a:hover { background-color: #f1f1f1; color: var(--primary-blue); }
+        
+        /* 滑鼠移入顯示下拉 */
+        .nav-item:hover .dropdown-content { display: block; }
+
+        .social-icons { display: flex; gap: 15px; font-size: 24px; }
+
+        /* --- Hero Section (Quote) --- */
+        .teacher-hero {
+            position: relative;
+            height: 400px;
+            background: url('https://placehold.co/1920x600/333/999?text=Bookshelf+Background') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quote-box {
+            background: rgba(0, 0, 0, 0.6);
+            color: #fff;
+            padding: 30px 50px;
+            font-size: 24px;
+            text-align: center;
+            max-width: 800px;
+            line-height: 1.8;
+            border-left: 5px solid var(--primary-blue);
+        }
+
+        /* --- Team Sections --- */
+        .team-section {
+            padding: 60px 0;
+            margin-bottom: 40px;
+        }
+
+        /* Team Banner (The colored bar) */
+        .team-banner {
+            width: 100%;
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            color: #333;
+            font-size: 36px;
+            font-weight: bold;
+            position: relative;
+        }
+        
+        /* Math Style */
+        .banner-math {
+            background-color: #90B4D6; /* 淺藍色背景 */
+            background-image: radial-gradient(#7ea3c7 20%, transparent 20%); /* 模擬圓點 */
+            background-size: 20px 20px;
+        }
+        /* Science Style */
+        .banner-science {
+            background-color: #E6DBC6; /* 米黃色背景 */
+        }
+        /* English Style */
+        .banner-english {
+            background-color: #C6E6C6; /* 淺綠色 */
+        }
+
+        .team-title-box {
+            background: #fff;
+            padding: 10px 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Description Box */
+        .team-intro-card {
+            background: #fff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: -60px auto 60px; /* 往上推疊在 Banner 上 */
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1.8;
+        }
+
+        /* Teacher Grid */
+        .teacher-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            justify-items: center;
+        }
+
+        .teacher-card {
+            text-align: center;
+        }
+
+        .teacher-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .teacher-name {
+            font-size: 28px;
+            font-weight: bold;
+            border-bottom: 3px solid transparent;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- Footer (維持一致) --- */
+        footer { background: var(--primary-blue); color: #fff; padding: 40px 0 10px; margin-top: 0; }
+        .footer-content { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 30px; }
+        .footer-info h3 { font-size: 24px; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.3); padding-bottom: 10px; display: inline-block;}
+        .footer-info p { margin-bottom: 10px; }
+        .footer-map { width: 50%; height: 250px; background: #ddd; }
+        .footer-map iframe { width: 100%; height: 100%; border: 0; }
+        .appointment-btn { display: inline-block; border: 1px solid #fff; padding: 10px 40px; margin-top: 20px; transition: 0.3s; color: #fff;}
+        .appointment-btn:hover { background: #fff; color: var(--primary-blue); }
+        .footer-links { border-top: 1px solid rgba(255,255,255,0.2); padding-top: 20px; font-size: 12px; text-align: center; }
+        .footer-links a { margin: 0 5px; opacity: 0.8; }
+        .copyright { text-align: center; margin-top: 20px; font-size: 14px; opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-inner">
+            <div class="logo">
+                <img src="https://placehold.co/150x50/2B5592/fff?text=LOGO" alt="金科文理補習班">
+                <span>金科文理補習班<br><small style="font-size:12px;">國小·國中·高中·一對一</small></span>
+            </div>
+            <nav class="nav-menu">
+                <div class="nav-item"><a href="index.html" class="nav-link">首頁</a></div>
+                <div class="nav-item"><a href="about.html" class="nav-link">關於我們</a></div>
+                <div class="nav-item"><a href="news.html" class="nav-link">最新消息</a></div>
+                <div class="nav-item"><a href="classes.html" class="nav-link">班級介紹</a></div>
+                
+                <div class="nav-item">
+                    <a href="teachers.html" class="nav-link active">師資介紹 <i class="fas fa-caret-down"></i></a>
+                    <div class="dropdown-content">
+                        <a href="#math">數學團隊</a>
+                        <a href="#science">理化團隊</a>
+                        <a href="#english">英文團隊</a>
+                        <a href="#social">生物/地科團隊</a>
+                        <a href="#chinese">國文團隊</a>
+                    </div>
+                </div>
+
+                <div class="nav-item"><a href="#" class="nav-link">活動花絮</a></div>
+                <div class="nav-item"><a href="#" class="nav-link">線上資源</a></div>
+                <div class="nav-item"><a href="#" class="nav-link">聯繫我們</a></div>
+            </nav>
+            <div class="social-icons">
+                <i class="fab fa-facebook-square" style="color:#3b5998;"></i>
+                <i class="fab fa-line" style="color:#00c300;"></i>
+            </div>
+        </div>
+    </header>
+
+    <div class="teacher-hero">
+        <div class="quote-box">
+            建立孩子的學習信心，讓每一個孩子都能在人生道路中，發光、發熱！
+        </div>
+    </div>
+
+    <div class="container">
+
+        <section id="math" class="team-section">
+            <div class="team-banner banner-math">
+                <div class="team-title-box">
+                    <i class="fas fa-calculator" style="font-size:30px; color:#2B5592;"></i>
+                    <span>數學</span>
+                </div>
+            </div>
+            
+            <div class="team-intro-card">
+                將難懂的數學解碼成淺顯易懂的觀念，著重學生分析能力的培養及聯想力的延伸，即使再複雜的題型，皆能快速迎刃而解！
+            </div>
+
+            <div class="teacher-grid">
+                <div class="teacher-card">
+                    <img src="https://placehold.co/300x300/333/fff?text=Teacher+Liu" alt="劉又綸老師" class="teacher-img">
+                    <div class="teacher-name">劉又綸 老師</div>
+                </div>
+                </div>
+        </section>
+
+        <section id="science" class="team-section">
+            <div class="team-banner banner-science">
+                 <div class="team-title-box">
+                    <i class="fas fa-flask" style="font-size:30px; color:#009688;"></i>
+                    <span>理化</span>
+                </div>
+            </div>
+
+            <div class="team-intro-card">
+                擅長將艱澀的理化難題，搭配精闢的觀念解析及圖像重點解說，建立同學深刻的印象，並激發同學對理化學習的高度興趣。
+            </div>
+
+            <div class="teacher-grid">
+                <div class="teacher-card">
+                    <img src="https://placehold.co/300x300/555/fff?text=Teacher+Wu" alt="吳極老師" class="teacher-img">
+                    <div class="teacher-name">吳極(林昆佑) 老師</div>
+                </div>
+                 <div class="teacher-card">
+                    <img src="https://placehold.co/300x300/666/fff?text=Teacher+2" alt="其他老師" class="teacher-img">
+                    <div class="teacher-name">理化團隊 老師</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="english" class="team-section">
+            <div class="team-banner banner-english">
+                 <div class="team-title-box">
+                    <i class="fas fa-language" style="font-size:30px; color:#4CAF50;"></i>
+                    <span>英文</span>
+                </div>
+            </div>
+
+            <div class="team-intro-card">
+               文法解析淺顯易懂，針對會考必考重點精編重點解析，並搭配歷屆會考試題，讓同學精準掌握準備方向獲取高分。
+            </div>
+
+            <div class="teacher-grid">
+                <div class="teacher-card">
+                    <img src="https://placehold.co/300x300/777/fff?text=Eng+Teacher" alt="英文老師" class="teacher-img">
+                    <div class="teacher-name">英文團隊 老師</div>
+                </div>
+            </div>
+        </section>
+
+         <section id="social" class="team-section">
+            <div class="team-intro-card" style="margin-top:0;">
+                <h3 style="margin-bottom:20px;">生物 / 地科 / 國文 團隊</h3>
+                <p>各科鑽石級陣容，歡迎親臨本班試聽了解。</p>
+            </div>
+         </section>
+
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>金科文理補習班</h3>
+                    <p>班部地址：台北市信義區松信路154號1樓</p>
+                    <p>諮詢電話：02-2769-6727</p>
+                    <p>營業時間：</p>
+                    <p>週一 ~ 週五 下午14:30 ~ 下午22:00</p>
+                    <p>週六 上午 08:30 ~ 下午17:00</p>
+                    <a href="#" class="appointment-btn">立即預約</a>
+                </div>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.936666!2d121.57!3d25.04!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAyJzM0LjgiTiAxMjHCsDM0JzMwLjAiRQ!5e0!3m2!1sen!2stw!4v1600000000000!5m2!1sen!2stw" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <a href="#">金科文理補習班</a> | 
+                <a href="#">信義區補習班推薦</a>
+            </div>
+            <div class="copyright">
+                © 2022 Power by 8ducation Inc.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

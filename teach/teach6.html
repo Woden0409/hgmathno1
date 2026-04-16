@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>線上請假申請</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-blue: #1b3b8c;
+            --accent-yellow: #feca2e;
+            --light-bg: #f3f7fa;
+            --white: #ffffff;
+            --grey-border: #e2e8f0;
+            --text-dark: #334155;
+            --text-light: #64748b;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: var(--light-bg);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 中央主要容器 - 模擬一張大卡片 */
+        .main-container {
+            background: var(--white);
+            max-width: 600px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 頂部導航與標題 */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-bg);
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 10px;
+            margin-right: 15px;
+            border-radius: 50%;
+            transition: background 0.2s;
+        }
+
+        .back-btn:hover {
+            background: var(--light-bg);
+            color: var(--primary-blue);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+        }
+
+        /* 表單區塊 */
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .section-label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-blue);
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* 1. 假別選擇 (Radio Button 改裝成按鈕) */
+        .leave-types {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .leave-types input[type="radio"] {
+            display: none;
+        }
+
+        .type-btn {
+            padding: 10px 20px;
+            border: 2px solid var(--grey-border);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 500;
+            color: var(--text-light);
+            transition: all 0.2s;
+            background: #fff;
+        }
+
+        /* 選中狀態 */
+        .leave-types input[type="radio"]:checked + .type-btn {
+            background-color: var(--primary-blue);
+            color: #fff;
+            border-color: var(--primary-blue);
+            box-shadow: 0 4px 12px rgba(27, 59, 140, 0.3);
+        }
+
+        /* 2. 日期選擇 */
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .custom-input {
+            padding: 12px 15px;
+            border: 2px solid var(--grey-border);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            color: var(--text-dark);
+            outline: none;
+            transition: border 0.2s;
+            background: #fff;
+        }
+
+        .custom-input:focus {
+            border-color: var(--primary-blue);
+        }
+
+        /* 3. 節次選擇 (網格佈局) */
+        .period-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 一行四個 */
+            gap: 10px;
+            background-color: var(--light-bg);
+            padding: 15px;
+            border-radius: 16px;
+        }
+
+        .period-checkbox {
+            position: relative;
+        }
+
+        .period-checkbox input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 100%;
+            width: 100%;
+            z-index: 2;
+        }
+
+        .period-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #fff;
+            padding: 10px 5px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .period-label span {
+            font-size: 0.75rem;
+            margin-top: 4px;
+            color: #94a3b8;
+        }
+
+        /* 節次選中狀態 */
+        .period-checkbox input:checked + .period-label {
+            border-color: var(--accent-yellow);
+            background-color: #fffbeb;
+            color: #d97706;
+            font-weight: 700;
+        }
+
+        /* 4. 原因輸入 */
+        textarea.custom-input {
+            width: 100%;
+            min-height: 100px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        /* 5. 底部按鈕 */
+        .footer {
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .total-info {
+            font-weight: 700;
+            color: var(--primary-blue);
+        }
+
+        .submit-btn {
+            background-color: var(--accent-yellow);
+            color: #fff; /* 這裡也可以改深藍字增加對比 */
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(254, 202, 46, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 讓文字顏色在黃底上更清楚，這裡用深色試試 */
+        .submit-btn { color: #854d0e; }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(254, 202, 46, 0.6);
+        }
+
+        /* 手機版調整 */
+        @media (max-width: 480px) {
+            .date-row { grid-template-columns: 1fr; }
+            .period-grid { grid-template-columns: repeat(3, 1fr); }
+            .main-container { padding: 25px 20px; }
+        }
+
+        /* 裝飾用的頂部黃條 */
+        .top-deco {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary-blue) 0%, var(--accent-yellow) 100%);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="top-deco"></div>
+
+        <div class="header">
+            <button class="back-btn" onclick="history.back()"><i class="fa-solid fa-arrow-left"></i></button>
+            <h1>填寫請假單</h1>
+        </div>
+
+        <form>
+            <div class="form-section">
+                <label class="section-label"><i class="fa-solid fa-tag"></i> 選擇假別</label>
+                <div class="leave-types">
+                    <label>
+                        <input type="radio" name="leaveType" value="sick" checked>
+                        <div class="type-btn">病假</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="leaveType" value="personal">
+                        <div class="type-btn">事假</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="leaveType" value="official">
+                        <div class="type-btn">公假</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="leaveType" value="annual">
+                        <div class="type-btn">特休</div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label class="section-label"><i class="fa-regular fa-calendar"></i> 選擇日期</label>
+                <div class="date-row">
+                    <div class="input-group">
+                        <input type="date" class="custom-input">
+                    </div>
+                    </div>
+            </div>
+
+            <div class="form-section">
+                <label class="section-label"><i class="fa-regular fa-clock"></i> 請假節次 (可複選)</label>
+                <div class="period-grid">
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p1">
+                        <label for="p1" class="period-label">第 1 節<span>08:10</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p2">
+                        <label for="p2" class="period-label">第 2 節<span>09:10</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p3">
+                        <label for="p3" class="period-label">第 3 節<span>10:10</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p4">
+                        <label for="p4" class="period-label">第 4 節<span>11:10</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p_noon">
+                        <label for="p_noon" class="period-label">午 休<span>12:00</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p5">
+                        <label for="p5" class="period-label">第 5 節<span>13:20</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p6">
+                        <label for="p6" class="period-label">第 6 節<span>14:20</span></label>
+                    </div>
+                    <div class="period-checkbox">
+                        <input type="checkbox" id="p7">
+                        <label for="p7" class="period-label">第 7 節<span>15:20</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <label class="section-label"><i class="fa-regular fa-comment-dots"></i> 請假事由 / 交辦事項</label>
+                <textarea class="custom-input" placeholder="請填寫事由，若有代課老師請在此註明交辦進度..."></textarea>
+            </div>
+
+            <div class="footer">
+                <div class="total-info">
+                    共計：<span id="period-count">0</span> 節
+                </div>
+                <button type="button" class="submit-btn">
+                    送出申請 <i class="fa-solid fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // 簡單的 JS 來計算選了幾節課 (增加互動感)
+        const checkboxes = document.querySelectorAll('.period-checkbox input');
+        const countDisplay = document.getElementById('period-count');
+
+        checkboxes.forEach(box => {
+            box.addEventListener('change', () => {
+                const count = document.querySelectorAll('.period-checkbox input:checked').length;
+                countDisplay.textContent = count;
+            });
+        });
+    </script>
+</body>
+</html>

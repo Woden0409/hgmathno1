@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>教師行政中心 | 請假與代課</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* 配色變數 - 可在此調整顏色 */
+            --primary-blue: #1b3b8c;       /* 標題深藍 */
+            --accent-yellow: #feca2e;      /* 按鈕與裝飾黃 */
+            --sub-blue: #4d73ff;           /* 副標題亮藍 */
+            --bg-gradient-top: #eff6ff;    /* 卡片背景漸層上 */
+            --bg-gradient-bottom: #ffffff; /* 卡片背景漸層下 */
+            --text-grey: #555555;
+            --card-border-radius: 24px;
+        }
+
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333;
+        }
+
+        /* 頂部區域 */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .top-label {
+            color: var(--sub-blue);
+            font-weight: 700;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            color: var(--primary-blue);
+            font-size: 2.5rem;
+            margin: 0 0 20px 0;
+            font-weight: 900;
+        }
+
+        .description {
+            color: var(--text-grey);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        /* 黃色裝飾線 */
+        .divider {
+            width: 60px;
+            height: 6px;
+            background-color: var(--accent-yellow);
+            margin: 0 auto;
+            border-radius: 3px;
+        }
+
+        /* 卡片容器 */
+        .card-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 40px 20px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap; /* 手機版換行 */
+        }
+
+        /* 單張卡片樣式 */
+        .card {
+            background: linear-gradient(180deg, var(--bg-gradient-top) 0%, var(--bg-gradient-bottom) 100%);
+            border-radius: var(--card-border-radius);
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid transparent;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.1);
+            border-color: #dbeafe;
+        }
+
+        /* 圓形圖片區域 */
+        .icon-circle {
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fff;
+            border: 5px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .icon-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 如果沒有圖片，用這顏色代替 */
+        .icon-placeholder {
+            width: 100%;
+            height: 100%;
+            background: #e0e7ff;
+            color: var(--primary-blue);
+            font-size: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-title {
+            color: var(--primary-blue);
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 10px 0 5px;
+        }
+
+        .card-subtitle {
+            color: var(--sub-blue);
+            font-weight: 700;
+            font-size: 1rem;
+            margin-bottom: 25px;
+        }
+
+        /* 黃色資訊框 */
+        .yellow-box {
+            background-color: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 12px;
+            padding: 20px 15px;
+            margin-bottom: 25px;
+        }
+
+        .box-label {
+            color: #d97706; /* 較深的黃橙色文字 */
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .box-content {
+            color: #333;
+            font-weight: 500;
+            font-size: 1rem;
+            margin: 0;
+        }
+
+        /* 底部資訊文字 */
+        .card-footer-info {
+            color: var(--text-grey);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .highlight-num {
+            color: var(--primary-blue);
+            font-weight: bold;
+        }
+
+        /* 右下角浮動按鈕 (模仿原圖的預約試聽) */
+        .fab-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--accent-yellow);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 5px 20px rgba(251, 191, 36, 0.5);
+            z-index: 100;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .fab-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* 響應式調整 */
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .card-container { flex-direction: column; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="top-label">TEACHER RESOURCE CENTER</span>
+        <h1>教師行政與代課中心</h1>
+        <p class="description">
+            簡化行政流程，即時媒合代課。我們致力於提供老師最強的後勤支援，<br>讓您無論是臨時請假或計畫休假，都能輕鬆安排。
+        </p>
+        <div class="divider"></div>
+    </header>
+
+    <section class="card-container">
+        
+        <article class="card">
+            <div class="icon-circle">
+                <div class="icon-placeholder">
+                    <i class="fa-regular fa-calendar-check"></i>
+                </div>
+            </div>
+            <h2 class="card-title">請假申請</h2>
+            <div class="card-subtitle">病假 / 事假 / 公假</div>
+            
+            <div class="yellow-box">
+                <span class="box-label">QUICK ACTION</span>
+                <p class="box-content">"填寫電子假單，系統自動通知教務處與群組"</p>
+            </div>
+
+            <div class="card-footer-info">
+                <div>剩餘特休：<span class="highlight-num">3 天</span></div>
+                <div>本學期請假：<span class="highlight-num">2 次</span></div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="icon-circle">
+                <div class="icon-placeholder">
+                    <i class="fa-solid fa-people-arrows"></i>
+                </div>
+            </div>
+            <h2 class="card-title">代課媒合池</h2>
+            <h3 class="card-subtitle">尋找代課 / 應徵代課</h3>
+            
+            <div class="yellow-box">
+                <span class="box-label">CURRENT NEEDS</span>
+                <p class="box-content">"發布您的代課需求，或協助其他老師代課"</p>
+            </div>
+
+            <div class="card-footer-info">
+                <div>急需代課案件：<span class="highlight-num" style="color:red;">2 件</span></div>
+                <div>我的媒合請求：<span class="highlight-num">進行中</span></div>
+            </div>
+        </article>
+
+        <article class="card">
+            <div class="icon-circle">
+                <div class="icon-placeholder">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                </div>
+            </div>
+            <h2 class="card-title">紀錄與簽核</h2>
+            <h3 class="card-subtitle">歷史紀錄 / 鐘點費</h3>
+            
+            <div class="yellow-box">
+                <span class="box-label">HISTORY & LOGS</span>
+                <p class="box-content">"查詢過往的出缺勤紀錄以及簽核進度狀態"</p>
+            </div>
+
+            <div class="card-footer-info">
+                <div>最近一筆：<span class="highlight-num">10/25 (已核准)</span></div>
+                <div>代課費結算：<span class="highlight-num">已入帳</span></div>
+            </div>
+        </article>
+
+    </section>
+
+    <div class="fab-btn" title="聯絡教務處">
+        <i class="fa-solid fa-headset"></i>
+    </div>
+
+</body>
+</html>
