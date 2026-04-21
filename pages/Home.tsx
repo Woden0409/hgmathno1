@@ -25,9 +25,9 @@ const SUBJECT_TEAMS = [
 
 // Sidebar News/Announcements
 const SIDEBAR_NEWS = [
-  { id: 1, title: '115暑期 國小資優營', thumb: '/news1-thumb.png', full: '/news1.png', tag: '招生' },
-  { id: 2, title: '115-1 小六升國一', thumb: '/news2-thumb.png', full: '/news2.png', tag: '升學' },
-  { id: 3, title: '洪觀資優數學班招生', thumb: '/news3-thumb.png', full: '/news3.png', tag: '招生' },
+  { id: 1, title: '115暑期 國小資優營', thumb: '/news1-thumb.png', full: '/news1.png', tag: '招生', height: 'h-32' },
+  { id: 2, title: '115-1 小六升國一', thumb: '/news2-thumb.png', full: '/news2.png', tag: '升學', height: 'h-48' },
+  { id: 3, title: '洪觀資優數學班招生', thumb: '/news3-thumb.png', full: '/news3.png', tag: '招生', height: 'h-48' },
 ];
 
 // Education Cards
@@ -160,7 +160,7 @@ const Home: React.FC = () => {
                   className="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
                   onClick={() => setPreviewImage(news.full)}
                 >
-                  <div className="relative h-48 overflow-hidden">
+                  <div className={`relative ${news.height} overflow-hidden`}>
                     <img
                       src={news.thumb}
                       alt={news.title}
