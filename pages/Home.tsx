@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Users, Newspaper, BookOpen, GraduationCap, Award, ChevronRight, Calendar, Clock, MapPin, Phone, CheckCircle } from 'lucide-react';
+import { ArrowRight, Users, Newspaper, BookOpen, GraduationCap, Award, ChevronRight, Calendar, Clock, MapPin, Phone, CheckCircle, X } from 'lucide-react';
 import { CountdownSection } from '../components/CountdownNews';
 
 // Subject Teams Data
@@ -25,10 +25,9 @@ const SUBJECT_TEAMS = [
 
 // Sidebar News/Announcements
 const SIDEBAR_NEWS = [
-  { id: 1, title: '114年國中教育會考榜單', image: 'https://picsum.photos/300/150?random=40', tag: '榜單' },
-  { id: 2, title: '暑期密集班課表公告', image: 'https://picsum.photos/300/150?random=41', tag: '課程' },
-  { id: 3, title: '國九第一次模擬考', image: 'https://picsum.photos/300/150?random=42', tag: '公告' },
-  { id: 4, title: '寒假課程火熱報名中', image: 'https://picsum.photos/300/150?random=43', tag: '報名' },
+  { id: 1, title: '115暑期 國小資優營', image: '/news1.png', tag: '招生' },
+  { id: 2, title: '115-1 小六升國一', image: '/news2.png', tag: '升學' },
+  { id: 3, title: '洪觀資優數學班招生', image: '/news3.png', tag: '招生' },
 ];
 
 // Education Cards
@@ -66,6 +65,8 @@ const QUICK_LINKS = [
 ];
 
 const Home: React.FC = () => {
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
+
   const scrollToContact = () => {
     document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -154,7 +155,11 @@ const Home: React.FC = () => {
             {/* Sidebar */}
             <aside className="lg:col-span-2 space-y-4">
               {SIDEBAR_NEWS.map((news) => (
-                <div key={news.id} className="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group">
+                <div
+                  key={news.id}
+                  className="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
+                  onClick={() => setPreviewImage(news.image)}
+                >
                   <div className="relative h-32 overflow-hidden">
                     <img
                       src={news.image}
@@ -314,6 +319,27 @@ const Home: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Preview Modal */}
+      {previewImage && (
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setPreviewImage(null)}
+        >
+          <button
+            className="absolute top-4 right-4 text-white/80 hover:text-white p-2"
+            onClick={() => setPreviewImage(null)}
+          >
+            <X size={32} />
+          </button>
+          <img
+            src={previewImage}
+            alt="預覽"
+            className="max-w-full max-h-[90vh] object-contain rounded-lg shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+        </div>
+      )}
     </div>
   );
 };
