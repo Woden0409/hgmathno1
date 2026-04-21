@@ -160,7 +160,7 @@ const Home: React.FC = () => {
                   className="bg-white rounded-xl shadow-card overflow-hidden hover:shadow-lg transition-shadow cursor-pointer group"
                   onClick={() => setPreviewImage(news.full)}
                 >
-                  <div className="relative h-32 overflow-hidden">
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={news.thumb}
                       alt={news.title}
