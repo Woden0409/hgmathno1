@@ -137,9 +137,9 @@ const Home: React.FC = () => {
       {/* Main Content: Subject Teams + Sidebar */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-7 gap-10">
             {/* Subject Teams */}
-            <div className="lg:col-span-3 space-y-10">
+            <div className="lg:col-span-4 space-y-10">
               {SUBJECT_TEAMS.map((team, idx) => (
                 <div key={idx} className="text-center">
                   <h3 className="inline-block text-xl md:text-2xl font-bold text-primary border-b-2 border-primary pb-2 mb-4">
@@ -153,7 +153,7 @@ const Home: React.FC = () => {
             </div>
 
             {/* Sidebar */}
-            <aside className="lg:col-span-2 space-y-4">
+            <aside className="lg:col-span-3 space-y-4">
               {SIDEBAR_NEWS.map((news) => (
                 <div
                   key={news.id}
