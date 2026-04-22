@@ -87,10 +87,12 @@ const Navbar: React.FC = () => {
           <div className="flex items-center justify-between">
             {/* Logo */}
             <button onClick={navigateToHome} className="flex items-center gap-2 group">
-              <img src="/logo.png" alt="宏觀教育" className="h-14 group-hover:scale-105 transition-transform" />
-              <span className="text-2xl font-black tracking-tight text-accent">
-                宏觀教育
-              </span>
+              <img src="/logo.png" alt="宏觀補習班" className="h-14 group-hover:scale-105 transition-transform" />
+              <div className="text-left">
+                <span className="block text-2xl font-black tracking-tight text-accent leading-tight">宏觀補習班</span>
+                <span className="block text-[10px] text-gray-500 font-medium">升私中 • 升數資 • 升高中 • 升大學</span>
+                <span className="block text-[10px] text-gray-400">語文 | 數理 | 作文 | 實驗</span>
+              </div>
             </button>
 
             {/* Desktop Menu */}
