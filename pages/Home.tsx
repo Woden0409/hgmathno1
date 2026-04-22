@@ -77,10 +77,17 @@ const Home: React.FC = () => {
       <section className="relative pt-[52px] overflow-hidden">
         {/* Image Area */}
         <div className="relative bg-gray-100">
+          {/* 桌面版：完整顯示 */}
           <img
             src="/hero-banner3.png"
             alt="宏觀教育"
-            className="w-full h-auto block"
+            className="hidden md:block w-full h-auto"
+          />
+          {/* 手機版：固定高度，等比縮放不裁切 */}
+          <img
+            src="/hero-banner3.png"
+            alt="宏觀教育"
+            className="md:hidden w-full h-[250px] object-contain bg-gray-100"
           />
           {/* Navigation Arrows */}
           <button className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-12 h-12 bg-black/10 hover:bg-black/20 rounded-full flex items-center justify-center text-white transition-colors">
