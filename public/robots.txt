@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hgmathno1.onrender.com/sitemap.xml
