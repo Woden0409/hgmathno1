@@ -91,6 +91,24 @@ const ONLINE_COURSES: OnlineCourse[] = [
 
 const CATEGORIES = ['全部', '國小', '國中', '高中'];
 
+const FEATURED_VIDEOS = [
+  {
+    id: 'y812uoPMaIo',
+    title: '精選教學影片 1',
+    description: '透過實際課堂內容，快速了解老師講解節奏與課程特色。',
+  },
+  {
+    id: 'H-vLOjpbZgc',
+    title: '精選教學影片 2',
+    description: '適合家長與學生先行試看，掌握線上學習的呈現方式。',
+  },
+  {
+    id: '7r5bYKSBfrs',
+    title: '精選教學影片 3',
+    description: '補充課程重點與學習方向，作為正式選課前的參考。',
+  },
+];
+
 const OnlinePage: React.FC = () => {
   const [selectedCourse, setSelectedCourse] = useState<OnlineCourse | null>(null);
   const [activeCategory, setActiveCategory] = useState('全部');
@@ -111,6 +129,49 @@ const OnlinePage: React.FC = () => {
           <p className="text-blue-200 text-lg max-w-2xl mx-auto">
             打破時間與空間的限制，讓名師隨時隨地成為你的家教。高清畫質、重點剪輯，學習效率加倍。
           </p>
+        </div>
+      </section>
+
+      {/* Featured Videos */}
+      <section className="py-16 bg-white border-b border-gray-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+            <div>
+              <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">
+                Featured Videos
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black text-accent mb-3">精選教學影片</h2>
+              <p className="text-gray-600 text-lg max-w-2xl">
+                先從影片認識宏觀教育的教學方式，再依照年級與需求挑選合適課程。
+              </p>
+            </div>
+            <div className="inline-flex items-center gap-2 text-sm font-bold text-primary bg-blue-50 px-4 py-2 rounded-lg self-start md:self-auto">
+              <Video size={16} /> 可直接線上觀看
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {FEATURED_VIDEOS.map((video) => (
+              <article
+                key={video.id}
+                className="bg-white border border-gray-100 rounded-2xl shadow-card overflow-hidden"
+              >
+                <div className="aspect-video bg-gray-900">
+                  <iframe
+                    className="w-full h-full"
+                    src={`https://www.youtube.com/embed/${video.id}?rel=0`}
+                    title={video.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                  ></iframe>
+                </div>
+                <div className="p-6">
+                  <h3 className="text-xl font-bold text-accent mb-2">{video.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{video.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
