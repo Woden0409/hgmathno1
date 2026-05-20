@@ -94,17 +94,17 @@ const CATEGORIES = ['全部', '國小', '國中', '高中'];
 const FEATURED_VIDEOS = [
   {
     id: 'y812uoPMaIo',
-    title: '精選教學影片 1',
+    title: '115年度會考數學詳解',
     description: '透過實際課堂內容，快速了解老師講解節奏與課程特色。',
   },
   {
     id: 'H-vLOjpbZgc',
-    title: '精選教學影片 2',
+    title: '115年度會考英文詳解',
     description: '適合家長與學生先行試看，掌握線上學習的呈現方式。',
   },
   {
     id: '7r5bYKSBfrs',
-    title: '精選教學影片 3',
+    title: '115年度會考國文詳解',
     description: '補充課程重點與學習方向，作為正式選課前的參考。',
   },
 ];
