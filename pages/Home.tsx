@@ -103,18 +103,49 @@ const Home: React.FC = () => {
       <section className="py-16 md:py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6 text-center">
           <h1 className="text-3xl md:text-4xl font-black text-accent mb-4">
-            學習不只是教育，更是<span className="text-primary border-b-4 border-primary pb-1">啟發</span>
+            宏觀文理補習班｜學習不只是教育，更是<span className="text-primary border-b-4 border-primary pb-1">啟發</span>
           </h1>
           <p className="text-xl md:text-2xl font-bold text-gray-700 mb-2">王者之選，菁英之路。</p>
           <p className="text-lg text-secondary font-bold mb-6">"對的讀書方法，造就高效好成績"</p>
           <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-            宏觀教育創立以來，始終堅持教育理想，認真教學的升學文理補習班。
+            宏觀文理補習班位於臺北市信義區大道路42巷18號，提供國小、國中、高中升學文理課程。
             <br className="hidden md:block" />
-            我們相信，正確的學習策略比盲目的努力更重要。歡迎家長和同學的加入與指教。
+            我們相信，正確的學習策略比盲目的努力更重要，以小班制、責任制教學陪伴學生準備升私中、國中會考與高中學測。
           </p>
         </div>
       </section>
 
+
+      {/* Local SEO Section */}
+      <section className="py-12 bg-bgLight border-y border-gray-100">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="max-w-4xl mx-auto">
+            <span className="text-primary font-bold tracking-wider uppercase text-sm mb-2 block">
+              Taipei Xinyi District Cram School
+            </span>
+            <h2 className="text-2xl md:text-3xl font-black text-accent mb-4">
+              台北信義區國小、國中、高中文理補習班
+            </h2>
+            <p className="text-gray-700 text-lg leading-relaxed mb-6">
+              宏觀文理補習班深耕台北信義區，課程涵蓋國小升私中、國中會考5A衝刺、高中學測與分科測驗準備，並提供數學、英文、國文、自然理化等核心科目教學。家長搜尋宏觀文理補習班、信義區補習班、國中會考補習班時，可以透過本網站了解課程、師資與預約試聽資訊。
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div className="bg-white rounded-xl p-5 shadow-card border border-gray-100">
+                <h3 className="font-bold text-accent mb-2">國小升學銜接</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">升私中、資優數學、競賽數學與閱讀寫作，提前建立國中學習基礎。</p>
+              </div>
+              <div className="bg-white rounded-xl p-5 shadow-card border border-gray-100">
+                <h3 className="font-bold text-accent mb-2">國中會考衝刺</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">國文、英文、數學、自然理化完整複習，協助學生穩定準備會考。</p>
+              </div>
+              <div className="bg-white rounded-xl p-5 shadow-card border border-gray-100">
+                <h3 className="font-bold text-accent mb-2">高中學測準備</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">針對高中數學、英文與升大學考試需求，安排系統化課程與輔導。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Feature Links (Teachers / News) */}
       <section className="py-8 bg-white">
         <div className="container mx-auto px-4 md:px-6">
